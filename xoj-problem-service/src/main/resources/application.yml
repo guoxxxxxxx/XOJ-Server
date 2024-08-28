@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: xoj-problem-service
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/pipi_xoj_user?serverTimezone=UTC
+    type: com.alibaba.druid.pool.DruidDataSource
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 31500
+  servlet:
+    context-path: /api/xoj/user
