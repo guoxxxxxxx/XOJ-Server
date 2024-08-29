@@ -18,7 +18,7 @@ import lombok.Data;
 @Data
 @Table(name = "user_record")
 @Entity
-public class UserRecord {
+public class TbUserRecord {
 
     /**
      * 主键
