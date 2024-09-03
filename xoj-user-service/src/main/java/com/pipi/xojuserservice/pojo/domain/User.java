@@ -8,6 +8,7 @@
 package com.pipi.xojuserservice.pojo.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -39,11 +40,6 @@ public class User {
      * 密码
      */
     private String password;
-
-    /**
-     * salt
-     */
-    private String salt;
 
     /**
      * 昵称
@@ -125,16 +121,27 @@ public class User {
     /**
      * 用户权限
      */
-    private Integer authorities;
+    private String authorities;
 
     /**
      * 最近登录的ip地址
      */
-    private String loginIP;
+    private String loginIp;
 
     /**
      * 最近登录的时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date loginTime;
+
+    /**
+     * 用户账户是否被锁定，true锁定， false未被锁定
+     */
+    private Boolean isLock;
+
+    /**
+     * 用于判断当前操作是否成功
+     */
+    @TableField(exist = false)
+    private Boolean isSuccessful;
 }

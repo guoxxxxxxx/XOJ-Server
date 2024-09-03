@@ -9,7 +9,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  data:
+    redis:
+      database: 1
+      host: 192.168.247.139
+      port: 6379
+      connect-timeout: 10s
 server:
-  port: 31500
+  port: 31505
   servlet:
-    context-path: /api/xoj/user
+    context-path: /api/xoj/user_service

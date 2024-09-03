@@ -10,6 +10,6 @@ spring:
     hibernate:
       ddl-auto: update
 server:
-  port: 31501
+  port: 31506
   servlet:
     context-path: /api/xoj/problem

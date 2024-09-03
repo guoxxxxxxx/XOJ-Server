@@ -29,7 +29,7 @@ public class TbUser {
      */
     @Id
     @TableId(type = IdType.AUTO, value = "id")
-    @Column(name = "id", unique = true, columnDefinition = "INT8")
+    @Column(name = "id", unique = true, columnDefinition = "INT8 AUTO_INCREMENT")
     private Long id;
 
     /**
@@ -43,12 +43,6 @@ public class TbUser {
      */
     @Column(name = "password", columnDefinition = "VARCHAR(512)")
     private String password;
-
-    /**
-     * salt
-     */
-    @Column(name = "salt", columnDefinition = "VARCHAR(512)")
-    private String salt;
 
     /**
      * 昵称
@@ -139,14 +133,14 @@ public class TbUser {
     /**
      * 用户角色
      */
-    @Column(name = "role", columnDefinition = "VARCHAR(16)")
+    @Column(name = "role", columnDefinition = "VARCHAR(16) DEFAULT 'user'")
     private String role;
 
     /**
      * 用户权限
      */
-    @Column(name = "authorities", columnDefinition = "INT2")
-    private Integer authorities;
+    @Column(name = "authorities", columnDefinition = "VARCHAR(256)")
+    private String authorities;
 
     /**
      * 最近登录的ip地址
@@ -161,5 +155,9 @@ public class TbUser {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date loginTime;
 
-
+    /**
+     * 用户账户是否被锁定，true锁定， false未被锁定
+     */
+    @Column(name = "is_lock", columnDefinition = "BOOL DEFAULT FALSE")
+    private Boolean isLock;
 }
