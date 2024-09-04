@@ -1,15 +1,15 @@
-package com.pipi.xojuserservice;
+package com.pipi.xojgateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication(scanBasePackages = "com.pipi")
+@SpringBootApplication
 @EnableDiscoveryClient
-public class XojUserServiceApplication {
+public class XojGatewayServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(XojUserServiceApplication.class, args);
+        SpringApplication.run(XojGatewayServiceApplication.class, args);
     }
 
 }
