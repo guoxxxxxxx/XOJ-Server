@@ -1,18 +1,17 @@
 /**
- * @Time: 2024/9/1 19:27
+ * @Time: 2024/9/5 9:09
  * @Author: guoxun
  * @File: JwtAuthenticationTokenFilter
  * @Description:
  */
 
-package com.pipi.xojuserservice.filter;
+package com.pipi.xojgateway.filter;
 
 import com.alibaba.fastjson2.JSON;
 import com.pipi.xojcommon.exception.TokenErrorException;
-import com.pipi.xojcommon.exception.TokenExpiredException;
 import com.pipi.xojcommon.utils.JwtUtils;
-import com.pipi.xojuserservice.pojo.domain.LoginUser;
-import com.pipi.xojuserservice.utlis.JwtTokenUtils;
+import com.pipi.xojgateway.pojo.domain.LoginUser;
+import com.pipi.xojgateway.utils.JwtTokenUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,11 +20,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -33,14 +31,14 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+@Service
 @Slf4j
-@Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
-//    @Value("${server.servlet.context-path}")
-    private String prefix_url;
 
-    private static final String[] AUTH_URLS = {"/user/login", "/user/register", "/user/registerSendAuthCode"};
+    private String prefix_url = "";
+
+    private static final String[] AUTH_URLS = {"/gateway/test", "/user/1"};
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

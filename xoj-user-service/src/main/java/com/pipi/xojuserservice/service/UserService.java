@@ -23,4 +23,6 @@ public interface UserService extends IService<User> {
     CommonResult registerSendAuthCode(String email);
 
     Map<String, String> login(LoginDTO loginDTO, HttpServletRequest request);
+
+    User queryById(Integer id);
 }

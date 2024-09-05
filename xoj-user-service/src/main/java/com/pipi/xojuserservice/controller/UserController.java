@@ -9,6 +9,7 @@ package com.pipi.xojuserservice.controller;
 
 import com.pipi.xojcommon.aop.annotation.Logger;
 import com.pipi.xojcommon.common.CommonResult;
+import com.pipi.xojuserservice.pojo.domain.User;
 import com.pipi.xojuserservice.pojo.dto.LoginDTO;
 import com.pipi.xojuserservice.pojo.dto.UserRegisterDTO;
 import com.pipi.xojuserservice.service.UserService;
@@ -49,5 +50,14 @@ public class UserController {
     public CommonResult login(@RequestBody LoginDTO loginDTO, HttpServletRequest request){
         Map<String, String> token = userService.login(loginDTO, request);
         return new CommonResult().success().data(token).message("登录成功");
+    }
+
+
+    @Logger("根据id查询用户信息")
+    @ApiOperation("根据id查询用户信息")
+    @GetMapping ("/{id}")
+    public CommonResult getUserById(@PathVariable Integer id){
+        User user = userService.queryById(id);
+        return new CommonResult().success().message("查询数据成功").data(user);
     }
 }

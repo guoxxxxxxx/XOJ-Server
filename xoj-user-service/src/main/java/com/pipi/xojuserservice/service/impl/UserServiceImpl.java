@@ -124,4 +124,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         BeanUtils.copyProperties(user, loginUser);
         return Map.of("token", JwtUtils.createJWT(JSON.toJSONString(loginUser)));
     }
+
+    @Override
+    public User queryById(Integer id) {
+        System.out.println("running");
+        return baseMapper.selectById(id);
+    }
 }

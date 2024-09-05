@@ -4,7 +4,21 @@ spring:
   cloud:
     nacos:
       discovery:
-        port: 8848
-        server-addr: 192.168.247.139
+        server-addr: 192.168.247.139:8848
+    # 路由信息配置
+    gateway:
+      mvc:
+        routes:
+          - id: xoj-user-service
+            uri: lb://xoj-user-service
+            predicates:
+              - Path=/api/xoj/v1/user/**
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+server:
+  port: 31500
+# 权限校验配置
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+

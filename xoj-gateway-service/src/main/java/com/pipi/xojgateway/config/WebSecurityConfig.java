@@ -1,13 +1,13 @@
 /**
- * @Time: 2024/8/30 14:57
+ * @Time: 2024/9/5 9:06
  * @Author: guoxun
- * @File: SecurityConfig
+ * @File: WebSecurityConfig
  * @Description:
  */
 
-package com.pipi.xojuserservice.config;
+package com.pipi.xojgateway.config;
 
-import com.pipi.xojuserservice.filter.JwtAuthenticationTokenFilter;
+import com.pipi.xojgateway.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,8 +51,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         // 配置关闭csrf机制
         http.csrf(AbstractHttpConfigurer::disable)
-        .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll())
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll())
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

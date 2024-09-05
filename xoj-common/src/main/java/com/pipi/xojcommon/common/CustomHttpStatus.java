@@ -19,6 +19,7 @@ public enum CustomHttpStatus {
      */
     AUTH_GENERAL_ERROR(1100, "鉴权通用错误代码"),
     AUTH_USERNAME_OR_PASSWORD_ERROR(1101, "用户名或密码错误"),
+    AUTH_TOKEN_IS_NOT_EXIST(1102, "Token不存在"),
     /**
      * 用户注册相关 12xx
      */
