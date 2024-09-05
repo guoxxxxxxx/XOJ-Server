@@ -2,7 +2,7 @@ package com.pipi.xojuserservice.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.pipi.xojuserservice.pojo.domain.User;
+import com.pipi.xojcommon.pojo.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 
 

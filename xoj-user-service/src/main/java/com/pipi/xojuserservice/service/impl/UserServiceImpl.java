@@ -13,12 +13,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pipi.xojcommon.common.CommonResult;
 import com.pipi.xojcommon.common.CustomHttpStatus;
 import com.pipi.xojcommon.constrant.RedisNamespace;
+import com.pipi.xojcommon.pojo.domain.User;
 import com.pipi.xojcommon.utils.JwtUtils;
 import com.pipi.xojcommon.utils.MailUtils;
 import com.pipi.xojcommon.utils.RandomAuthCodeUtil;
 import com.pipi.xojuserservice.mapper.UserMapper;
 import com.pipi.xojuserservice.pojo.domain.LoginUser;
-import com.pipi.xojuserservice.pojo.domain.User;
 import com.pipi.xojuserservice.pojo.dto.LoginDTO;
 import com.pipi.xojuserservice.pojo.dto.UserRegisterDTO;
 import com.pipi.xojuserservice.service.UserService;
@@ -26,7 +26,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,7 +35,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @Service

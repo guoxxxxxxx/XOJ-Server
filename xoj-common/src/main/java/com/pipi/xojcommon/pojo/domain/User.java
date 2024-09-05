@@ -5,7 +5,7 @@
  * @Description:
  */
 
-package com.pipi.xojuserservice.pojo.domain;
+package com.pipi.xojcommon.pojo.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

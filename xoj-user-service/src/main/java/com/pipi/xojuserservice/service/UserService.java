@@ -9,13 +9,12 @@ package com.pipi.xojuserservice.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pipi.xojcommon.common.CommonResult;
-import com.pipi.xojuserservice.pojo.domain.User;
+import com.pipi.xojcommon.pojo.domain.User;
 import com.pipi.xojuserservice.pojo.dto.LoginDTO;
 import com.pipi.xojuserservice.pojo.dto.UserRegisterDTO;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
-import java.util.Objects;
 
 public interface UserService extends IService<User> {
     CommonResult register(UserRegisterDTO userRegisterDTO);

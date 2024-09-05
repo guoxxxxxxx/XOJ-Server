@@ -8,6 +8,8 @@
 package com.pipi.xojgateway.controller;
 
 import com.pipi.xojcommon.common.CommonResult;
+import com.pipi.xojcommon.pojo.domain.User;
+import com.pipi.xojcommon.utils.ResponseUtils;
 import com.pipi.xojgateway.feign.UserFeignClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ public class TestController {
     @GetMapping("/test")
     public CommonResult test(){
         CommonResult userById = userFeignClient.getUserById(1);
-        return userById;
+        User user = ResponseUtils.getObjectFromCommonResult(userById, User.class);
+        return new CommonResult().success().message("查询成功").data(user);
     }
 }

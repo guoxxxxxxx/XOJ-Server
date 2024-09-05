@@ -7,6 +7,7 @@
 
 package com.pipi.xojcommon.common;
 
+import com.alibaba.fastjson2.JSON;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
@@ -77,5 +78,10 @@ public class CommonResult {
     public CommonResult data(String key, Object value){
         data = Map.of(key, value);
         return this;
+    }
+
+
+    public String getJsonData(){
+        return JSON.toJSONString(this.data);
     }
 }
