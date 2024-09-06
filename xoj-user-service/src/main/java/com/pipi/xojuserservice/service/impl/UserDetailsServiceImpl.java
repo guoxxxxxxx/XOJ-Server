@@ -9,9 +9,9 @@ package com.pipi.xojuserservice.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.pipi.xojcommon.pojo.domain.User;
 import com.pipi.xojuserservice.mapper.UserMapper;
 import com.pipi.xojuserservice.pojo.domain.LoginUser;
+import com.pipi.xojuserservice.pojo.domain.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;

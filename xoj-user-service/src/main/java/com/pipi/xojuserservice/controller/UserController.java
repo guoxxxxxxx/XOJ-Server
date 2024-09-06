@@ -9,7 +9,7 @@ package com.pipi.xojuserservice.controller;
 
 import com.pipi.xojcommon.aop.annotation.Logger;
 import com.pipi.xojcommon.common.CommonResult;
-import com.pipi.xojcommon.pojo.domain.User;
+import com.pipi.xojuserservice.pojo.domain.User;
 import com.pipi.xojuserservice.pojo.dto.LoginDTO;
 import com.pipi.xojuserservice.pojo.dto.UserRegisterDTO;
 import com.pipi.xojuserservice.service.UserService;
