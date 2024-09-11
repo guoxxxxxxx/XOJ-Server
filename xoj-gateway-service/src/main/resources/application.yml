@@ -13,12 +13,13 @@ spring:
             uri: lb://xoj-user-service
             predicates:
               - Path=/api/xoj/v1/user/**
+          - id: xoj-auth-service
+            uri: lb://xoj-auth-service
+            predicates:
+              - Path=/api/xoj/v1/auth/**
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 server:
   port: 31500
-# 权限校验配置
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
+
 

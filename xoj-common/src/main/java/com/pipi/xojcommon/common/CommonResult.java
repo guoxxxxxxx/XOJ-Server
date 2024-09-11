@@ -8,6 +8,7 @@
 package com.pipi.xojcommon.common;
 
 import com.alibaba.fastjson2.JSON;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
@@ -81,6 +82,7 @@ public class CommonResult {
     }
 
 
+    @JsonIgnore
     public String getJsonData(){
         return JSON.toJSONString(this.data);
     }

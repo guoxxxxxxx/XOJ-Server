@@ -17,5 +17,8 @@
 	<modules>
 		<module>xoj-common</module>
 		<module>xoj-user-service</module>
+		<module>xoj-problem-service</module>
+		<module>xoj-auth-service</module>
+		<module>xoj-gateway-service</module>
 	</modules>
 </project>

@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: xoj-auth-service
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/pipi_xoj_auth?serverTimezone=UTC
+    type: com.alibaba.druid.pool.DruidDataSource
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  data:
+    redis:
+      database: 1
+      host: 192.168.247.139
+      port: 6379
+      connect-timeout: 10s
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.247.139:8848
+
+server:
+  port: 31501
+  servlet:
+    context-path: /api/xoj/v1

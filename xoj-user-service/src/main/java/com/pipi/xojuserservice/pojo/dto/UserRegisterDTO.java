@@ -13,11 +13,6 @@ import lombok.Data;
 public class UserRegisterDTO {
 
     /**
-     * 用户名
-     */
-    private String username;
-
-    /**
      * 用户邮箱
      */
     private String email;

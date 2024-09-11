@@ -12,48 +12,37 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pipi.xojcommon.common.CommonResult;
 import com.pipi.xojcommon.common.CustomHttpStatus;
-import com.pipi.xojcommon.constrant.RedisNamespace;
+import com.pipi.xojcommon.constant.RedisNamespace;
 import com.pipi.xojcommon.utils.JwtUtils;
 import com.pipi.xojcommon.utils.MailUtils;
 import com.pipi.xojcommon.utils.RandomAuthCodeUtil;
 import com.pipi.xojuserservice.mapper.UserMapper;
-import com.pipi.xojuserservice.pojo.domain.LoginUser;
-import com.pipi.xojuserservice.pojo.domain.User;
-import com.pipi.xojuserservice.pojo.dto.LoginDTO;
+import com.pipi.xojuserservice.pojo.domain.UserInfo;
 import com.pipi.xojuserservice.pojo.dto.UserRegisterDTO;
 import com.pipi.xojuserservice.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implements UserService {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
 
     /**
      * 检查当前邮箱是否已经被注册
-     * @param email
-     * @return
+     * @param email 邮箱
+     * @return 已被注册: true 未被注册: false
      */
-    Boolean checkEmailIsRegister(String email){
-        return baseMapper.exists(new LambdaQueryWrapper<User>().eq(User::getEmail, email));
+    public Boolean checkEmailIsRegister(String email){
+        return baseMapper.exists(new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getEmail, email));
     }
 
 
@@ -67,16 +56,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodePassword = passwordEncoder.encode(userRegisterDTO.getPassword());
             userRegisterDTO.setPassword(encodePassword);
-            User user = new User();
+            UserInfo user = new UserInfo();
             BeanUtils.copyProperties(userRegisterDTO, user);
             if (checkEmailIsRegister(userRegisterDTO.getEmail()))
                 return new CommonResult().code(CustomHttpStatus.EMAIL_ALREADY_REGISTER);
             if (baseMapper.insert(user) == 1){
-                User userInfo = baseMapper.selectOne(new LambdaQueryWrapper<User>()
-                        .eq(User::getEmail, user.getEmail()));
-                LoginUser loginUser = new LoginUser();
-                BeanUtils.copyProperties(userInfo, loginUser);
-                String token = JwtUtils.createJWT(JSON.toJSONString(loginUser));
+                UserInfo userInfo = baseMapper.selectOne(new LambdaQueryWrapper<UserInfo>()
+                        .eq(UserInfo::getEmail, user.getEmail()));
+                String token = JwtUtils.createJWT(JSON.toJSONString(userInfo));
+                stringRedisTemplate.delete(
+                        RedisNamespace.AUTH_CODE_REGISTER.getFullPathKey(userRegisterDTO.getEmail()));
                 return new CommonResult().message("注册成功").success().data("token", token);
             }
             else {
@@ -111,20 +100,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
     }
 
-
     @Override
-    public Map<String, String> login(LoginDTO loginDTO, HttpServletRequest request) {
-        Authentication authenticate = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authenticate);
-        User user = baseMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getEmail, loginDTO.getEmail()));
-        LoginUser loginUser = new LoginUser();
-        BeanUtils.copyProperties(user, loginUser);
-        return Map.of("token", JwtUtils.createJWT(JSON.toJSONString(loginUser)));
+    public String queryByEmail(String email) {
+        UserInfo userInfo = baseMapper.selectOne(new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getEmail, email));
+        return userInfo == null ? null : JSON.toJSONString(userInfo);
     }
 
+
     @Override
-    public User queryById(Integer id) {
+    public UserInfo queryById(Integer id) {
         System.out.println("running");
         return baseMapper.selectById(id);
     }

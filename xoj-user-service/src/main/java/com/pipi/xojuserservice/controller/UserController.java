@@ -9,7 +9,7 @@ package com.pipi.xojuserservice.controller;
 
 import com.pipi.xojcommon.aop.annotation.Logger;
 import com.pipi.xojcommon.common.CommonResult;
-import com.pipi.xojuserservice.pojo.domain.User;
+import com.pipi.xojuserservice.pojo.domain.UserInfo;
 import com.pipi.xojuserservice.pojo.dto.LoginDTO;
 import com.pipi.xojuserservice.pojo.dto.UserRegisterDTO;
 import com.pipi.xojuserservice.service.UserService;
@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -27,9 +29,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     @Logger("用户注册")
     @ApiOperation("用户注册")
-    @PostMapping("/register")
+    @PostMapping("/ua/register")
     public CommonResult register(@RequestBody UserRegisterDTO userRegisterDTO){
         return userService.register(userRegisterDTO);
     }
@@ -43,20 +46,19 @@ public class UserController {
     }
 
 
-    @Logger("用户登录")
-    @ApiOperation("用户登录")
-    @PostMapping("/login")
-    public CommonResult login(@RequestBody LoginDTO loginDTO, HttpServletRequest request){
-        Map<String, String> token = userService.login(loginDTO, request);
-        return new CommonResult().success().data(token).message("登录成功");
-    }
-
-
     @Logger("根据id查询用户信息")
     @ApiOperation("根据id查询用户信息")
     @GetMapping ("/{id}")
     public CommonResult getUserById(@PathVariable Integer id){
-        User user = userService.queryById(id);
-        return new CommonResult().success().message("查询数据成功").data(user);
+        UserInfo userInfo = userService.queryById(id);
+        return new CommonResult().success().message("查询数据成功").data(userInfo);
+    }
+
+
+    @Logger("根据email查询用户信息")
+    @ApiOperation("根据email查询用户信息")
+    @GetMapping("/getUserJsonByEmail")
+    public String getUserJsonByEmail(@RequestParam String email){
+        return userService.queryByEmail(email);
     }
 }
