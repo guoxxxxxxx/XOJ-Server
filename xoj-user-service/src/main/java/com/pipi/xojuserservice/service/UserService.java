@@ -23,7 +23,7 @@ public interface UserService extends IService<UserInfo> {
      * @param userRegisterDTO 参数
      * @return
      */
-    CommonResult register(UserRegisterDTO userRegisterDTO);
+    CommonResult register(UserRegisterDTO userRegisterDTO, HttpServletRequest request);
 
 
     /**

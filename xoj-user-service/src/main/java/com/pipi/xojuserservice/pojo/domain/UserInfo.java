@@ -96,6 +96,11 @@ public class UserInfo {
     private Date registerTime;
 
     /**
+     * 上次登录ip
+     */
+    private String lastLoginIp;
+
+    /**
      * 删除位
      */
     private Boolean deleteBit;

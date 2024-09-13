@@ -15,10 +15,7 @@ import com.pipi.xojcommon.common.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -40,11 +37,10 @@ public class AuthController {
     }
 
 
-    // TODO 此方法有重大漏洞, 后期需要继续完善
     @Logger("用户注册保存密码")
     @ApiOperation("用户注册保存密码")
     @PostMapping("/ua/savePassword")
-    public CommonResult savePassword(String infoJson){
+    public CommonResult savePassword(@RequestBody String infoJson){
         Boolean status = authService.savePassword(infoJson);
         return new CommonResult().success().message("保存成功").data(status);
     }

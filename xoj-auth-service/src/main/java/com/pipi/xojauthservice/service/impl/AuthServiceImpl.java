@@ -8,6 +8,7 @@
 package com.pipi.xojauthservice.service.impl;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pipi.xojauthservice.feign.UserFeignClient;
@@ -26,6 +27,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Map;
 
 
@@ -51,7 +53,13 @@ public class AuthServiceImpl extends ServiceImpl<AuthMapper, AuthInfo> implement
 
     @Override
     public Boolean savePassword(String infoJson) {
-        AuthInfo authInfo = JSON.parseObject(infoJson, AuthInfo.class);
+        AuthInfo authInfo = new AuthInfo();
+        JSONObject jsonObject = JSON.parseObject(infoJson, JSONObject.class);
+        authInfo.setPassword(jsonObject.getObject("password", String.class));
+        authInfo.setUid(jsonObject.getObject("uid", Long.class));
+        authInfo.setLastModifyIp(jsonObject.getObject("lastModifyIp", String.class));
+        authInfo.setLastModifyTime(jsonObject.getObject("lastModifyTime", Date.class));
+        BeanUtils.copyProperties(jsonObject, authInfo);
         int insert = baseMapper.insert(authInfo);
         return insert == 1;
     }

@@ -25,3 +25,11 @@ server:
   port: 31501
   servlet:
     context-path: /api/xoj/v1
+
+seata:
+  tx-service-group: xoj-seata-server
+  service:
+    vgroup-mapping:
+      xoj-seata-server: default
+    grouplist:
+      default: 192.168.247.139:8091

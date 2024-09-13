@@ -95,6 +95,6 @@ public class TbProblem {
     /**
      * 删除标志位
      */
-    @Column(name = "delete_bit", columnDefinition = "BOOL DEFAULT FALSE")
+    @Column(name = "delete_bit", columnDefinition = "TINYINT DEFAULT 0")
     private Boolean deleteBit;
 }

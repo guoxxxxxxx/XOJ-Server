@@ -113,8 +113,14 @@ public class TbUser {
     private Date registerTime;
 
     /**
+     * 上次登录ip
+     */
+    @Column(name = "last_login_ip", columnDefinition = "VARCHAR(128)")
+    private String lastLoginIp;
+
+    /**
      * 删除位
      */
-    @Column(name = "delete_bit", columnDefinition = "BOOL DEFAULT FALSE")
+    @Column(name = "delete_bit", columnDefinition = "TINYINT DEFAULT 0")
     private Boolean deleteBit;
 }

@@ -66,12 +66,12 @@ public class TBAuth {
     /**
      * 是否被锁定
      */
-    @Column(name = "lock_bit", columnDefinition = "BOOL DEFAULT FALSE")
+    @Column(name = "lock_bit", columnDefinition = "TINYINT DEFAULT 0")
     private Boolean lockBit;
 
     /**
      * 删除位
      */
-    @Column(name = "delete_bit", columnDefinition = "BOOL DEFAULT FALSE")
+    @Column(name = "delete_bit", columnDefinition = "TINYINT DEFAULT 0")
     private Boolean delete_bit;
 }

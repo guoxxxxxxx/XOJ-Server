@@ -10,15 +10,12 @@ package com.pipi.xojuserservice.controller;
 import com.pipi.xojcommon.aop.annotation.Logger;
 import com.pipi.xojcommon.common.CommonResult;
 import com.pipi.xojuserservice.pojo.domain.UserInfo;
-import com.pipi.xojuserservice.pojo.dto.LoginDTO;
 import com.pipi.xojuserservice.pojo.dto.UserRegisterDTO;
 import com.pipi.xojuserservice.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 
 
@@ -33,8 +30,8 @@ public class UserController {
     @Logger("用户注册")
     @ApiOperation("用户注册")
     @PostMapping("/ua/register")
-    public CommonResult register(@RequestBody UserRegisterDTO userRegisterDTO){
-        return userService.register(userRegisterDTO);
+    public CommonResult register(@RequestBody UserRegisterDTO userRegisterDTO, HttpServletRequest request){
+        return userService.register(userRegisterDTO, request);
     }
 
 
