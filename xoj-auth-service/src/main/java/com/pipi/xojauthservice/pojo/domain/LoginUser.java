@@ -8,6 +8,7 @@
 package com.pipi.xojauthservice.pojo.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,6 +55,7 @@ public class LoginUser implements UserDetails {
      * 角色映射数组
      * roleMapping
      */
+    @JsonIgnore
     private String[] roleMapping = {"admin", "manager", "user", "guest"};
 
     @Override

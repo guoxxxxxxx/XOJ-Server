@@ -55,7 +55,7 @@ public class UserController {
     @Logger("根据email查询用户信息")
     @ApiOperation("根据email查询用户信息")
     @GetMapping("/getUserJsonByEmail")
-    public String getUserJsonByEmail(@RequestParam String email){
-        return userService.queryByEmail(email);
+    public CommonResult getUserJsonByEmail(@RequestParam String email){
+        return new CommonResult().success().message("查询成功").data(userService.queryByEmail(email));
     }
 }

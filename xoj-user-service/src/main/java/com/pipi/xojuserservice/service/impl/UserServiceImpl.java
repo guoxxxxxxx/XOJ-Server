@@ -74,15 +74,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
             if (checkEmailIsRegister(userRegisterDTO.getEmail()))
                 return new CommonResult().code(CustomHttpStatus.EMAIL_ALREADY_REGISTER);
             if (baseMapper.insert(user) == 1){
+                String token = JwtUtils.createJWT(JSON.toJSONString(user));
                 HashMap<String, Object> infoMap = new HashMap<>();
                 infoMap.put("uid", user.getId());
                 infoMap.put("lastModifyIp", request.getRemoteAddr());
                 infoMap.put("lastModifyTime", new Date());
                 infoMap.put("password", encodePassword);
+                infoMap.put("token", token);
+                stringRedisTemplate.opsForValue().set(
+                        RedisNamespace.REGISTER_TOKEN.getFullPathKey(String.valueOf(user.getId())), token);
                 authFeignClient.savePassword(JSON.toJSONString(infoMap));
-                String token = JwtUtils.createJWT(JSON.toJSONString(user));
                 stringRedisTemplate.delete(
                         RedisNamespace.AUTH_CODE_REGISTER.getFullPathKey(userRegisterDTO.getEmail()));
+                stringRedisTemplate.delete(RedisNamespace.REGISTER_TOKEN.getFullPathKey(String.valueOf(user.getId())));
                 return new CommonResult().message("注册成功").success().data("token", token);
             }
             else {
