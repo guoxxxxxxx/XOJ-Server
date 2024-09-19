@@ -101,6 +101,11 @@ public class UserInfo {
     private String lastLoginIp;
 
     /**
+     * 学号
+     */
+    private String studentId;
+
+    /**
      * 删除位
      */
     private Boolean deleteBit;

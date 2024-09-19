@@ -48,4 +48,12 @@ public interface UserService extends IService<UserInfo> {
      * @return 用户信息
      */
     UserInfo queryById(Integer id);
+
+
+    /**
+     * 检查邮箱是否已经注册
+     * @param email 所要检查的邮箱
+     * @return true: 已经注册  false: 未注册
+     */
+    Boolean checkEmailIsRegister(String email);
 }

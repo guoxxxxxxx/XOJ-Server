@@ -10,4 +10,8 @@ public interface UserFeignClient {
 
     @GetMapping("/getUserJsonByEmail")
     CommonResult getUserJsonByEmail(@RequestParam String email);
+
+
+    @GetMapping("/checkEmailIsRegister")
+    public Boolean checkEmailIsRegister(@RequestParam String email);
 }

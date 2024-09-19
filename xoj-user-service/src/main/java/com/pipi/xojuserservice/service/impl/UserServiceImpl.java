@@ -46,11 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
     private AuthFeignClient authFeignClient;
 
 
-    /**
-     * 检查当前邮箱是否已经被注册
-     * @param email 邮箱
-     * @return 已被注册: true 未被注册: false
-     */
+    @Override
     public Boolean checkEmailIsRegister(String email){
         return baseMapper.exists(new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getEmail, email));
     }

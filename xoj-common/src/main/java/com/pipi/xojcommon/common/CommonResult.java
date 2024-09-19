@@ -31,7 +31,7 @@ public class CommonResult {
     /**
      * 状态码
      */
-    private Integer code;
+    private Integer status;
 
     /**
      * 数据
@@ -40,26 +40,20 @@ public class CommonResult {
 
 
     public CommonResult success(){
-        this.code = 200;
+        this.status = 200;
         return this;
     }
 
 
     public CommonResult fail(){
-        this.code = 500;
+        this.status = 500;
         return this;
     }
 
 
     public CommonResult code(CustomHttpStatus customHttpStatus){
-        this.code = customHttpStatus.getCode();
+        this.status = customHttpStatus.getCode();
         this.message = customHttpStatus.getMessage();
-        return this;
-    }
-
-
-    public CommonResult code(HttpStatus httpStatus){
-        this.code = httpStatus.value();
         return this;
     }
 

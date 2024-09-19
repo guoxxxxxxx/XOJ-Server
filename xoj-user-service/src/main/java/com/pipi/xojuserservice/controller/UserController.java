@@ -29,7 +29,7 @@ public class UserController {
 
     @Logger("用户注册")
     @ApiOperation("用户注册")
-    @PostMapping("/ua/register")
+    @PostMapping("/register")
     public CommonResult register(@RequestBody UserRegisterDTO userRegisterDTO, HttpServletRequest request){
         return userService.register(userRegisterDTO, request);
     }
@@ -57,5 +57,13 @@ public class UserController {
     @GetMapping("/getUserJsonByEmail")
     public CommonResult getUserJsonByEmail(@RequestParam String email){
         return new CommonResult().success().message("查询成功").data(userService.queryByEmail(email));
+    }
+
+
+    @Logger("检查邮箱是否已经注册")
+    @ApiOperation("检查邮箱是否已经注册")
+    @GetMapping("/checkEmailIsRegister")
+    public Boolean checkEmailIsRegister(@RequestParam String email){
+        return userService.checkEmailIsRegister(email);
     }
 }

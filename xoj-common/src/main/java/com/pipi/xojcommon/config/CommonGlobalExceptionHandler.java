@@ -7,6 +7,9 @@
 
 package com.pipi.xojcommon.config;
 
+import com.pipi.xojcommon.common.CommonException;
+import com.pipi.xojcommon.common.CommonResult;
+import com.pipi.xojcommon.common.CustomHttpStatus;
 import com.pipi.xojcommon.exception.TokenErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -54,6 +57,13 @@ public class CommonGlobalExceptionHandler {
         response.put("error", "Token 不存在");
         response.put("message", e.toString());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+    @ExceptionHandler(CommonException.class)
+    public CommonResult handleCommonException(CommonException e){
+        CustomHttpStatus httpStatus = e.getHttpStatus();
+        return new CommonResult().code(httpStatus);
     }
 
 }

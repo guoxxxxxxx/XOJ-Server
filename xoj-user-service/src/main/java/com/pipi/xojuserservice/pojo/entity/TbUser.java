@@ -119,6 +119,12 @@ public class TbUser {
     private String lastLoginIp;
 
     /**
+     * 学号
+     */
+    @Column(name = "student_id", columnDefinition = "VARCHAR(32)")
+    private String studentId;
+
+    /**
      * 删除位
      */
     @Column(name = "delete_bit", columnDefinition = "TINYINT DEFAULT 0")
