@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(value = "xoj-auth-service", path = "/api/xoj/v1/auth")
 public interface AuthFeignClient {
 
-    @PostMapping("/ua/savePassword")
+    @PostMapping("/savePassword")
     CommonResult savePassword(@RequestBody String infoJson);
 }

@@ -16,4 +16,4 @@ spring:
 server:
   port: 31506
   servlet:
-    context-path: /api/xoj/problem
+    context-path: /api/xoj/v1

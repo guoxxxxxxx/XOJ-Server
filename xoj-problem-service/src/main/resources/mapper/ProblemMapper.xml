@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipi.xojproblemservice.mapper.ProblemMapper">
+
+    <resultMap type="com.pipi.xojproblemservice.pojo.domain.ProblemInfo" id="ProblemMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteBit" column="delete_bit" jdbcType="INTEGER"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="difficulty" column="difficulty" jdbcType="INTEGER"/>
+        <result property="memLimit" column="mem_limit" jdbcType="INTEGER"/>
+        <result property="stackLimit" column="stack_limit" jdbcType="INTEGER"/>
+        <result property="timeLimit" column="time_limit" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into pipi_xoj_problem.problem(create_time, delete_bit, description, difficulty, mem_limit, stack_limit, time_limit, title, uid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.createTime}, #{entity.deleteBit}, #{entity.description}, #{entity.difficulty}, #{entity.memLimit}, #{entity.stackLimit}, #{entity.timeLimit}, #{entity.title}, #{entity.uid})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into pipi_xoj_problem.problem(create_time, delete_bit, description, difficulty, mem_limit, stack_limit, time_limit, title, uid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.createTime}, #{entity.deleteBit}, #{entity.description}, #{entity.difficulty}, #{entity.memLimit}, #{entity.stackLimit}, #{entity.timeLimit}, #{entity.title}, #{entity.uid})
+        </foreach>
+        on duplicate key update
+         create_time = values(create_time) , delete_bit = values(delete_bit) , description = values(description) , difficulty = values(difficulty) , mem_limit = values(mem_limit) , stack_limit = values(stack_limit) , time_limit = values(time_limit) , title = values(title) , uid = values(uid)     </insert>
+
+    <!--条件查询-->
+    <select id="queryByCondition" resultType="com.pipi.xojproblemservice.pojo.domain.ProblemInfo" parameterType="com.pipi.xojproblemservice.pojo.dto.ProblemQueryConditionDTO">
+        select * from problem
+        where delete_bit = false
+        <if test="params.description != null">
+            and description like CONCAT('%', #{params.description}, '%')
+        </if>
+        <if test="params.difficulty != null">
+            and difficulty = #{params.difficulty}
+        </if>
+        <if test="params.title != null">
+            and title like CONCAT('%', #{params.title}, '%')
+        </if>
+        <if test="params.uid != null">
+            and uid = #{params.uid}
+        </if>
+        <if test="params.id != null">
+            and id = #{params.id}
+        </if>
+        <if test="params.leCreateTime != null">
+            and create_time &lt;= #{params.leCreateTime}
+        </if>
+        <if test="params.geCreateTime != null">
+            and create_time &gt;= #{params.geCreateTime}
+        </if>
+    </select>
+
+</mapper>
+

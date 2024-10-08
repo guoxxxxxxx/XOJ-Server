@@ -31,7 +31,12 @@ public enum CustomHttpStatus {
     /**
      * 密码修改 112x
      */
-    OLD_PASSWORD_NOT_MATCH(1120, "旧密码错误");
+    OLD_PASSWORD_NOT_MATCH(1120, "旧密码错误"),
+    /**
+     * 操作错误
+     */
+    INSERT_ERROR(1201, "插入信息失败")
+    ;
 
 
     /**

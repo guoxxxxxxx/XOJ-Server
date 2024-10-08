@@ -9,11 +9,13 @@ package com.pipi.xojcommon.common;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import lombok.Data;
 
 import java.util.List;
 
 
 
+@Data
 public class PageResult<T> {
 
     /**
@@ -47,5 +49,12 @@ public class PageResult<T> {
         this.currentPage = page.getCurrent();
         this.pageSize = page.getSize();
         this.data = page.getRecords();
+    }
+
+    public PageResult(List<T> data){
+        this.data = data;
+        this.total = (long) data.size();
+        this.currentPage = 0L;
+        this.pageSize = -1L;
     }
 }

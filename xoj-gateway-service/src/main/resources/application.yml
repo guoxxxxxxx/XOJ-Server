@@ -17,6 +17,10 @@ spring:
             uri: lb://xoj-auth-service
             predicates:
               - Path=/api/xoj/v1/auth/**
+          - id: xoj-problem-service
+            uri: lb://xoj-problem-service
+            predicates:
+              - Path=/api/xoj/v1/problem/**
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 server:

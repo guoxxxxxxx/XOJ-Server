@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipi.xojproblemservice.mapper.dao.ProblemTemplateDao">
+
+    <resultMap type="com.pipi.xojproblemservice.mapper.entity.ProblemTemplate" id="ProblemTemplateMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="deleteBit" column="delete_bit" jdbcType="INTEGER"/>
+        <result property="language" column="language" jdbcType="VARCHAR"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="template" column="template" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into pipi_xoj_problem.problem_template(delete_bit, language, pid, template)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.deleteBit}, #{entity.language}, #{entity.pid}, #{entity.template})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into pipi_xoj_problem.problem_template(delete_bit, language, pid, template)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.deleteBit}, #{entity.language}, #{entity.pid}, #{entity.template})
+        </foreach>
+        on duplicate key update
+         delete_bit = values(delete_bit) , language = values(language) , pid = values(pid) , template = values(template)     </insert>
+
+</mapper>
+

@@ -141,5 +141,6 @@ public class AuthServiceImpl extends ServiceImpl<AuthMapper, AuthInfo> implement
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         authInfo.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         baseMapper.update(authInfo, new LambdaQueryWrapper<AuthInfo>().eq(AuthInfo::getUid, uid));
+        stringRedisTemplate.delete(RedisNamespace.AUTH_CODE_RETRIEVE.getFullPathKey(dto.getEmail()));
     }
 }
